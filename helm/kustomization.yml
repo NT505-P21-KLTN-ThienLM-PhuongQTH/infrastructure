@@ -4,3 +4,4 @@ resources:
   - loki-promtail
   - prometheus
   - grafana
+  - argocd
