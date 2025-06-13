@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: argocd
+  labels:
+    name: argocd
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "1000m"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "36000"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "36000"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+    nginx.ingress.kubernetes.io/cors-allow-headers: "*"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: argocd.th1enlm02.live
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: argocd-server
+                port:
+                  number: 80

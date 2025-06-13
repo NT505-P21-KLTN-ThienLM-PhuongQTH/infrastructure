@@ -1,0 +1,31 @@
+## Argo CD configuration
+## Ref: https://github.com/argoproj/argo-cd
+##
+
+global:
+  domain: argocd.th1enlm02.live
+
+configs:
+  cm:
+    admin.enabled: "true"
+
+    accounts.dev: apiKey, login
+    accounts.dev.enabled: "true"
+
+  rbac:
+    policy.csv: |
+      p, role:dev, applications, get, */*, allow
+      p, role:dev, applications, sync, *, allow
+      p, role:dev, logs, get, */*, allow
+
+  # htpasswd -nbBC 10 "" yourpassword | tr -d ':\n' | sed 's/$2y/$2a/'
+  secret:
+    argocdServerAdminPassword: "$2a$10$OIG8Ng/.5gy2MJqVvhekLODI5mNoX2FD5N22XDCfG5zsbGBzTOOqK"
+    extra:
+      accounts.dev.password: "$2a$10$OIG8Ng/.5gy2MJqVvhekLODI5mNoX2FD5N22XDCfG5zsbGBzTOOqK"
+
+  params:
+    server.insecure: "true"
+    server.basehref: "/"
+    server.rootpath: ""
+    application.namespaces: "production, staging"
