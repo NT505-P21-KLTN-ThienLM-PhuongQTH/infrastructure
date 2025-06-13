@@ -6,7 +6,7 @@ resources:
   - repository.yml
   - release.yml
   - ingress.yml
-  - application.yml
+  # - application.yml
 configMapGenerator:
   - name: argocd-values
     files:
